@@ -11,7 +11,7 @@ function App() {
         <MyNav />
         <Welcome />
       </header>
-      <main>
+      <main className="bg-dark text-light pt-3">
         <BookCard />
       </main>
       <footer>

@@ -9,14 +9,16 @@ class BookCard extends Component {
   render() {
     return (
       <Container>
-        <Row className="justify-content-center mt-3 g-3 ">
+        <Row className="justify-content-center pb-5 g-3 ">
           {books.map((book) => {
             return (
               <Col xs={6} md={4} lg={3} xl={2} key={book.asin}>
                 <Card className="h-100">
                   <Card.Img variant="top" src={book.img} />
-                  <Card.Body>
-                    <Card.Title>{book.title}</Card.Title>
+                  <Card.Body className="d-flex flex-column ">
+                    <Card.Title className="flex-grow-1">
+                      {book.title}
+                    </Card.Title>
                     <Card.Text>€{book.price}</Card.Text>
                   </Card.Body>
                 </Card>

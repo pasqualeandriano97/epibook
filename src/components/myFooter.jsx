@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 
 const MyFooter = () => {
   return (
-    <Container fluid className="p-3 bg-dark text-white mt-5">
+    <Container fluid className="p-3 bg-dark text-white m-0 border-top">
       <Row className="justify-content-center">
         <Col className="col-6 text-center">
           <Row>

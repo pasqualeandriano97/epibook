@@ -6,7 +6,12 @@ function Welcome() {
 
   if (show) {
     return (
-      <Alert variant="success" onClose={() => setShow(false)} dismissible>
+      <Alert
+        className="mb-0"
+        variant="success"
+        onClose={() => setShow(false)}
+        dismissible
+      >
         <Alert.Heading>Benvenuto nel mio Shop di libri</Alert.Heading>
         <p>
           Qui troverai fantastici ed entusiasmanti libri da leggere nelle serate
