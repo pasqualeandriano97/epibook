@@ -15,7 +15,7 @@ class BookCard extends Component {
               <Col xs={12} md={4} lg={3} xl={2} key={book.asin}>
                 <Card className="h-100">
                   <Card.Img
-                    style={{ height: "350px" }}
+                    style={{ height: "300px" }}
                     variant="top"
                     src={book.img}
                   />
