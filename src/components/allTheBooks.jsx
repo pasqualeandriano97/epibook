@@ -12,9 +12,13 @@ class BookCard extends Component {
         <Row className="justify-content-center pb-5 g-3 ">
           {books.map((book) => {
             return (
-              <Col xs={6} md={4} lg={3} xl={2} key={book.asin}>
+              <Col xs={12} md={4} lg={3} xl={2} key={book.asin}>
                 <Card className="h-100">
-                  <Card.Img variant="top" src={book.img} />
+                  <Card.Img
+                    style={{ height: "350px" }}
+                    variant="top"
+                    src={book.img}
+                  />
                   <Card.Body className="d-flex flex-column ">
                     <Card.Title className="flex-grow-1">
                       {book.title}
