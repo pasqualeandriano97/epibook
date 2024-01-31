@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 
 class BookList extends Component {
   state = {
-    books: [],
+    books: this.props.books,
     search: "",
   };
   render() {
@@ -23,7 +23,7 @@ class BookList extends Component {
                     type="text"
                     placeholder="es. Harry Potter"
                     value={this.state.search}
-                    onChange={(e) =>
+                    onChange={(e) => {
                       this.setState({
                         search: e.target.value,
                         books: this.props.books.filter((book) =>
@@ -31,8 +31,8 @@ class BookList extends Component {
                             .toLowerCase()
                             .includes(e.target.value.toLowerCase())
                         ),
-                      })
-                    }
+                      });
+                    }}
                   />
                 </Form.Group>
               </Form>
