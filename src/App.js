@@ -3,7 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MyNav from "./components/myNav";
 import MyFooter from "./components/myFooter";
 import Welcome from "./components/welcome";
-import BookCard from "./components/allTheBooks";
+import array from "../src/data/fantasy.json";
+import BookList from "./components/BookList";
 function App() {
   return (
     <>
@@ -12,7 +13,7 @@ function App() {
         <Welcome />
       </header>
       <main className="bg-dark text-light pt-3">
-        <BookCard />
+        <BookList books={array} />
       </main>
       <footer>
         <MyFooter />
