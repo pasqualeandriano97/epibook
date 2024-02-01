@@ -30,9 +30,9 @@ class BookCard extends Component {
             <Card.Text>€{this.props.book.price}</Card.Text>
             <Card.Text>{this.props.book.category}</Card.Text>
           </Card.Body>
-          {this.state.selected !== "h-100" ? (
+          {/* {this.state.selected !== "h-100" ? (
             <CommentArea currentBook={this.props.book.asin} />
-          ) : null}
+          ) : null} */}
         </Card>
       </Col>
     );

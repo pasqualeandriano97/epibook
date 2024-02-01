@@ -11,22 +11,19 @@ class AddComponent extends Component() {
     return (
       <Form>
         <Form.Group className="mb-3">
-          <Form.Label>Nome Utente</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="inserisci il tuo nome utente"
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
           <Form.Label>Commento</Form.Label>
           <Form.Control type="text" placeholder="inserisci il tuo commento" />
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Select>
             <option>Fatto {console.log("lello")}</option>
             <option>Fatto22</option>
           </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Id Libro</Form.Label>
+          <Form.Control type="text" />
         </Form.Group>
         <Button
           variant="primary"
