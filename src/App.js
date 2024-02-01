@@ -3,8 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MyNav from "./components/myNav";
 import MyFooter from "./components/myFooter";
 import Welcome from "./components/welcome";
-import array from "../src/data/fantasy.json";
+
+import history from "../src/data/history.json";
+
 import BookList from "./components/BookList";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+
 function App() {
   return (
     <>
@@ -13,7 +18,11 @@ function App() {
         <Welcome />
       </header>
       <main className="bg-dark text-light pt-3">
-        <BookList books={array} />
+        <Container>
+          <Row className="justify-content-center align-items-center  mb-4">
+            <BookList books={history} />
+          </Row>
+        </Container>
       </main>
       <footer>
         <MyFooter />
