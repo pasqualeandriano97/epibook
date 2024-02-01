@@ -4,12 +4,16 @@ import Row from "react-bootstrap/esm/Row";
 import { Component } from "react";
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
-
+import Error from "./Error";
+import Spinner from "./Spinner";
 class CommentArea extends Component {
   state = {
     comments: [],
+    error: false,
+    isloading: false,
   };
   commentFetch = () => {
+    this.setState({ isloading: true });
     fetch(
       "https://striveschool-api.herokuapp.com/api/comments/" +
         this.props.currentBook,
@@ -26,11 +30,12 @@ class CommentArea extends Component {
         }
       })
       .then((data) => {
-        this.setState({ comments: data });
+        this.setState({ comments: data, isloading: false });
         console.log(data);
       })
       .catch((error) => {
         console.log(error);
+        this.setState({ error: true });
       });
   };
   componentDidMount() {
@@ -39,13 +44,19 @@ class CommentArea extends Component {
   render() {
     return (
       <Container>
-        <Row>
-          <Col>
-            <CommentsList list={this.state} />
-          </Col>
-          <Col>
-            <AddComment />
-          </Col>
+        <Row className="justify-content-center">
+          {this.state.isloading === true ? (
+            <Spinner />
+          ) : (
+            <>
+              <Col sm={12} md={12} lg={12} xl={12}>
+                <CommentsList list={this.state} />
+              </Col>
+              <Col sm={12} md={12} lg={12} xl={12}>
+                <AddComment currentBook={this.props.currentBook} />
+              </Col>
+            </>
+          )}
         </Row>
       </Container>
     );

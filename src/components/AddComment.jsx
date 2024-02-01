@@ -1,40 +1,83 @@
 import { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
-class AddComponent extends Component() {
+import Error from "./Error";
+class AddComponent extends Component {
   state = {
-    comment: "",
-    rate: "",
+    comment: {
+      comment: "",
+      rate: "1",
+      elementId: this.props.currentBook,
+    },
+    load: {
+      error: false,
+    },
   };
+
+  addComment = () => {
+    fetch("https://striveschool-api.herokuapp.com/api/comments", {
+      method: "POST",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFhNGVlYzE4N2U1YzAwMTgxNGM2ODQiLCJpYXQiOjE3MDU2NjAxNDAsImV4cCI6MTcwNjg2OTc0MH0.BYoumxc2t38hSThcQyQoO2cRhsXNCW4B0RjQnHYWubg",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then((response) => {
+        if (response.ok) {
+          this.setState({ ...this.state.load, error: false });
+          alert("Commento aggiunto con successo");
+        } else {
+          this.setState({ ...this.state.load, error: true });
+          alert("C'e stato un errore nell'aggiunta");
+        }
+      })
+      .catch((err) => {
+        this.setState({ ...this.state.load, error: true });
+        alert("C'e stato un errore nell'aggiunta");
+      });
+  };
+
   render() {
     return (
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          this.addComment();
+        }}
+      >
         <Form.Group className="mb-3">
           <Form.Label>Commento</Form.Label>
-          <Form.Control type="text" placeholder="inserisci il tuo commento" />
+          <Form.Control
+            type="text"
+            placeholder="inserisci il tuo commento"
+            value={this.state.comment.comment}
+            onChange={(e) =>
+              this.setState({ ...this.state.comment, comment: e.target.value })
+            }
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Select>
-            <option>Fatto {console.log("lello")}</option>
-            <option>Fatto22</option>
+          <Form.Select
+            value={this.state.rate}
+            onChange={(e) =>
+              this.setState({ ...this.state.comment, rate: e.target.value })
+            }
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Id Libro</Form.Label>
-          <Form.Control type="text" />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            console.log(Form);
-          }}
-        >
-          Submit
+
+        <Button variant="success" type="submit" className="mb-2">
+          INVIA
         </Button>
+        {this.state.load.error && <Error />}
       </Form>
     );
   }

@@ -2,7 +2,7 @@ import { Component } from "react";
 import SingleBook from "./SingleBook";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-
+import Error from "./Error";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
@@ -39,9 +39,13 @@ class BookList extends Component {
 
         <Container>
           <Row className="justify-content-center pb-5 g-3 ">
-            {this.state.books.map((single) => {
-              return <SingleBook key={single.asin} book={single} />;
-            })}
+            {this.state.books !== undefined ? (
+              this.state.books.map((single) => {
+                return <SingleBook key={single.asin} book={single} />;
+              })
+            ) : (
+              <Error />
+            )}
           </Row>
         </Container>
       </>
