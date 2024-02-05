@@ -8,18 +8,19 @@ class BookCard extends Component {
   };
 
   handleClick = () => {
-    this.state.selected === "h-100"
-      ? this.setState({
-          selected: "border border-2 border-danger h-100",
-        })
-      : this.setState({ selected: "h-100" });
     this.props.currentBookid(this.props.book.asin);
   };
 
   render() {
     return (
       <Col xs={12} md={6} lg={4} xl={3}>
-        <Card className={this.state.selected}>
+        <Card
+          className={
+            this.props.selectedBook === this.props.book.asin
+              ? "border-2 border-warning h-100"
+              : "h-100"
+          }
+        >
           <Card.Img
             style={{ height: "350px" }}
             variant="top"

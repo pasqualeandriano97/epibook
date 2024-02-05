@@ -14,11 +14,13 @@ class BookList extends Component {
     currentBook: "",
   };
 
-  currentBookChangeid = (id) => {
+  currentBookChangeid = (id, border) => {
     this.setState({
       currentBook: id,
+      selectedid: border,
     });
   };
+
   render() {
     return (
       <>
@@ -58,6 +60,7 @@ class BookList extends Component {
                         key={single.asin}
                         book={single}
                         currentBookid={this.currentBookChangeid}
+                        selectedBook={this.state.currentBook}
                       />
                     );
                   })
