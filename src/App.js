@@ -18,7 +18,7 @@ function App() {
         <Welcome />
       </header>
       <main className="bg-dark text-light pt-3">
-        <Container>
+        <Container fluid>
           <Row className="justify-content-center align-items-center  mb-4">
             <BookList books={history} />
           </Row>

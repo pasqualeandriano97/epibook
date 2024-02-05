@@ -5,11 +5,19 @@ import Col from "react-bootstrap/Col";
 import Error from "./Error";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
     books: this.props.books,
     search: "",
+    currentBook: "",
+  };
+
+  currentBookChangeid = (id) => {
+    this.setState({
+      currentBook: id,
+    });
   };
   render() {
     return (
@@ -39,13 +47,26 @@ class BookList extends Component {
 
         <Container>
           <Row className="justify-content-center pb-5 g-3 ">
-            {this.state.books !== undefined ? (
-              this.state.books.map((single) => {
-                return <SingleBook key={single.asin} book={single} />;
-              })
-            ) : (
-              <Error />
-            )}
+            <Col className="col-8">
+              <Row className="g-3">
+                {this.props.books === undefined ? (
+                  <Error />
+                ) : (
+                  this.state.books.map((single) => {
+                    return (
+                      <SingleBook
+                        key={single.asin}
+                        book={single}
+                        currentBookid={this.currentBookChangeid}
+                      />
+                    );
+                  })
+                )}
+              </Row>
+            </Col>
+            <Col className="sticky-top h-25 bg-white">
+              <CommentArea currentBook={this.state.currentBook} />
+            </Col>
           </Row>
         </Container>
       </>

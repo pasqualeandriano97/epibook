@@ -12,18 +12,14 @@ class CommentArea extends Component {
     error: false,
     isloading: false,
   };
-  commentFetch = () => {
+  commentFetch = (id) => {
     this.setState({ isloading: true });
-    fetch(
-      "https://striveschool-api.herokuapp.com/api/comments/" +
-        this.props.currentBook,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFhNGVlYzE4N2U1YzAwMTgxNGM2ODQiLCJpYXQiOjE3MDU2NjAxNDAsImV4cCI6MTcwNjg2OTc0MH0.BYoumxc2t38hSThcQyQoO2cRhsXNCW4B0RjQnHYWubg",
-        },
-      }
-    )
+    fetch("https://striveschool-api.herokuapp.com/api/comments/" + id, {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWMwZDEyZmUwODVmYTAwMTk2MzFhMjkiLCJpYXQiOjE3MDcxMzUyNzksImV4cCI6MTcwODM0NDg3OX0.1G7fIQvCJmroe_jHiQK2lobcaaRoGyyLUbyR76M6k6M",
+      },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -41,10 +37,16 @@ class CommentArea extends Component {
   componentDidMount() {
     this.commentFetch();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currentBook !== this.props.currentBook) {
+      this.commentFetch(this.props.currentBook);
+    }
+  }
   render() {
     return (
       <Container>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mt-5 ">
           {this.state.isloading === true ? (
             <Spinner />
           ) : (
