@@ -1,14 +1,21 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import SingleComment from "./SingleComponent";
 
-function CommentsList({ list }) {
+function CommentsList({ list, reloadComment, setReloadComment }) {
   return (
     <ListGroup>
-      {list.comments === undefined ? (
+      {list === undefined ? (
         <ListGroup.Item>Nessun libro selezionato</ListGroup.Item>
       ) : (
-        list.comments.map((comment) => {
-          return <SingleComment key={comment._id} comment={comment} />;
+        list.map((comment) => {
+          return (
+            <SingleComment
+              key={comment._id}
+              comment={comment}
+              reloadComment={reloadComment}
+              setReloadComment={setReloadComment}
+            />
+          );
         })
       )}
     </ListGroup>

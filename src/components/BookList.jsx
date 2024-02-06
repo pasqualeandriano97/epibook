@@ -6,75 +6,79 @@ import Error from "./Error";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CommentArea from "./CommentArea";
+import { useState } from "react";
 
-class BookList extends Component {
-  state = {
-    books: this.props.books,
-    search: "",
-    currentBook: "",
+const BookList = (book) => {
+  // state = {
+  //   books: this.props.books,
+  //   search: "",
+  //   currentBook: "",
+  // };
+
+  const [books, setBooks] = useState(book.books);
+  const [search, setSearch] = useState("");
+  const [currentBook, setCurrentBook] = useState("");
+  const [selectedid, setSelectedid] = useState("");
+
+  const currentBookChangeid = (id, border) => {
+    setCurrentBook(id);
+    setSelectedid(border);
   };
 
-  currentBookChangeid = (id, border) => {
-    this.setState({
-      currentBook: id,
-      selectedid: border,
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <Col className="col-4">
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Cerca il tuo libro preferito</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="es. Harry Potter"
-                value={this.state.search}
-                onChange={(e) => {
-                  this.setState({
-                    search: e.target.value,
-                    books: this.props.books.filter((book) =>
-                      book.title
-                        .toLowerCase()
-                        .includes(e.target.value.toLowerCase())
-                    ),
-                  });
-                }}
-              />
-            </Form.Group>
-          </Form>
-        </Col>
-
-        <Container>
-          <Row className="justify-content-center pb-5 g-3 ">
-            <Col className="col-8">
-              <Row className="g-3">
-                {this.props.books === undefined ? (
-                  <Error />
-                ) : (
-                  this.state.books.map((single) => {
-                    return (
-                      <SingleBook
-                        key={single.asin}
-                        book={single}
-                        currentBookid={this.currentBookChangeid}
-                        selectedBook={this.state.currentBook}
-                      />
-                    );
-                  })
-                )}
-              </Row>
-            </Col>
-            <Col className="sticky-top h-25 bg-white">
-              <CommentArea currentBook={this.state.currentBook} />
-            </Col>
-          </Row>
-        </Container>
-      </>
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    setBooks(
+      book.filter((book) =>
+        book.title.toLowerCase().includes(e.target.value.toLowerCase())
+      )
     );
-  }
-}
+  };
+
+  return (
+    <>
+      <Col className="col-4">
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Cerca il tuo libro preferito</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="es. Harry Potter"
+              value={search}
+              onChange={(e) => {
+                handleSearchChange(e);
+              }}
+            />
+          </Form.Group>
+        </Form>
+      </Col>
+
+      <Container>
+        <Row className="justify-content-center pb-5 g-3 ">
+          <Col className="col-8">
+            <Row className="g-3">
+              {books === undefined ? (
+                <Error />
+              ) : (
+                books.map((single) => {
+                  return (
+                    <SingleBook
+                      key={single.asin}
+                      book={single}
+                      currentBookid={currentBookChangeid}
+                      selectedBook={currentBook}
+                    />
+                  );
+                })
+              )}
+            </Row>
+          </Col>
+          <Col className="sticky-top h-25 bg-white">
+            <CommentArea currentBook={currentBook} />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
+};
 
 export default BookList;

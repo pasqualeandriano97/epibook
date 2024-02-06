@@ -1,19 +1,26 @@
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
-import { Component } from "react";
+
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
 import Error from "./Error";
 import Spinner from "./Spinner";
-class CommentArea extends Component {
-  state = {
-    comments: [],
-    error: false,
-    isloading: false,
-  };
-  commentFetch = (id) => {
-    this.setState({ isloading: true });
+import { useState, useEffect } from "react";
+const CommentArea = ({ currentBook }) => {
+  // state = {
+  //   comments: [],
+  //   error: false,
+  //   isloading: false,
+  // };
+
+  const [comments, setComments] = useState([]);
+  const [error, setError] = useState(false);
+  const [isloading, setIsloading] = useState(false);
+  const [reloadComment, setReloadComment] = useState(false);
+
+  const commentFetch = (id) => {
+    setIsloading(true);
     fetch("https://striveschool-api.herokuapp.com/api/comments/" + id, {
       headers: {
         Authorization:
@@ -26,43 +33,55 @@ class CommentArea extends Component {
         }
       })
       .then((data) => {
-        this.setState({ comments: data, isloading: false });
+        setComments(data);
+        setIsloading(false);
         console.log(data);
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ error: true });
+        setError(true);
       });
   };
-  componentDidMount() {
-    this.commentFetch();
-  }
+  // componentDidMount() {
+  //   this.commentFetch();
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentBook !== this.props.currentBook) {
-      this.commentFetch(this.props.currentBook);
-    }
-  }
-  render() {
-    return (
-      <Container>
-        <Row className="justify-content-center mt-5 ">
-          {this.state.isloading === true ? (
-            <Spinner />
-          ) : (
-            <>
-              <Col sm={12} md={12} lg={12} xl={12}>
-                <CommentsList list={this.state} />
-              </Col>
-              <Col sm={12} md={12} lg={12} xl={12}>
-                <AddComment currentBook={this.props.currentBook} />
-              </Col>
-            </>
-          )}
-        </Row>
-      </Container>
-    );
-  }
-}
+  useEffect(() => {
+    commentFetch(currentBook);
+  }, [currentBook, reloadComment]);
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.currentBook !== this.props.currentBook) {
+  //     this.commentFetch(this.props.currentBook);
+  //   }
+  // }
+
+  return (
+    <Container>
+      <Row className="justify-content-center mt-5 ">
+        {isloading === true ? (
+          <Spinner />
+        ) : (
+          <>
+            <Col sm={12} md={12} lg={12} xl={12}>
+              <CommentsList
+                list={comments}
+                reloadComment={reloadComment}
+                setReloadComment={setReloadComment}
+              />
+            </Col>
+            <Col sm={12} md={12} lg={12} xl={12}>
+              <AddComment
+                currentBook={currentBook}
+                reloadComment={reloadComment}
+                setReloadComment={setReloadComment}
+              />
+            </Col>
+          </>
+        )}
+      </Row>
+    </Container>
+  );
+};
 
 export default CommentArea;

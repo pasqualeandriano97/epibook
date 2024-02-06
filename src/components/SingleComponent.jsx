@@ -18,7 +18,11 @@ const deleteComment = (id) => {
     });
 };
 
-function SingleComment({ comment }) {
+function SingleComment({ comment, reloadComment, setReloadComment }) {
+  const handleReload = () => {
+    setReloadComment(!reloadComment);
+  };
+
   return (
     <ListGroup.Item variant="dark">
       <h5>{comment.author}</h5>
@@ -28,6 +32,7 @@ function SingleComment({ comment }) {
         variant="danger"
         onClick={() => {
           deleteComment(comment._id);
+          handleReload();
         }}
       >
         Elimina
