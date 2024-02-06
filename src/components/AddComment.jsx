@@ -4,20 +4,6 @@ import Form from "react-bootstrap/Form";
 import Error from "./Error";
 
 const AddComponent = ({ currentBook, reloadComment, setReloadComment }) => {
-  // state = {
-  //   comment: {
-  //     comment: "",
-  //     rate: "1",
-  //     elementId: this.props.currentBook,
-  //   },
-  //   load: {
-  //     error: false,
-  //   },
-  // };
-  // const handleReload = () => {
-  //   reload.setReloadComment(!reload.reloadComment);
-  // };
-
   let commentObj = {
     comment: "",
     rate: "1",

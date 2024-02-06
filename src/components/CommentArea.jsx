@@ -8,12 +8,6 @@ import Error from "./Error";
 import Spinner from "./Spinner";
 import { useState, useEffect } from "react";
 const CommentArea = ({ currentBook }) => {
-  // state = {
-  //   comments: [],
-  //   error: false,
-  //   isloading: false,
-  // };
-
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(false);
   const [isloading, setIsloading] = useState(false);
@@ -42,19 +36,10 @@ const CommentArea = ({ currentBook }) => {
         setError(true);
       });
   };
-  // componentDidMount() {
-  //   this.commentFetch();
-  // }
 
   useEffect(() => {
     commentFetch(currentBook);
   }, [currentBook, reloadComment]);
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.currentBook !== this.props.currentBook) {
-  //     this.commentFetch(this.props.currentBook);
-  //   }
-  // }
 
   return (
     <Container>
