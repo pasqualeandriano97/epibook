@@ -12,13 +12,10 @@ const BookCard = ({ book, currentBookid, selectedBook }) => {
         className={
           selectedBook === book.asin ? "border-2 border-warning h-100" : "h-100"
         }
+        data-testid="card"
+        onClick={() => handleClick()}
       >
-        <Card.Img
-          style={{ height: "350px" }}
-          variant="top"
-          src={book.img}
-          onClick={() => handleClick()}
-        />
+        <Card.Img style={{ height: "350px" }} variant="top" src={book.img} />
         <Card.Body className="d-flex flex-column ">
           <Card.Title className="flex-grow-1">{book.title}</Card.Title>
           <Card.Text>€{book.price}</Card.Text>

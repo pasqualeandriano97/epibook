@@ -1,10 +1,10 @@
-import Col from "react-bootstrap/esm/Col";
-import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
-import Error from "./Error";
+
 import Spinner from "./Spinner";
 import { useState, useEffect } from "react";
 const CommentArea = ({ currentBook }) => {
@@ -36,19 +36,19 @@ const CommentArea = ({ currentBook }) => {
         setError(true);
       });
   };
-
   useEffect(() => {
     commentFetch(currentBook);
   }, [currentBook, reloadComment]);
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5 ">
+      <Row className="justify-content-center mt-5 " data-testid="comment-area">
         {isloading === true ? (
           <Spinner />
         ) : (
           <>
             <Col sm={12} md={12} lg={12} xl={12}>
+              <h3 className="text-black">Commenti del libro selezionato</h3>
               <CommentsList
                 list={comments}
                 reloadComment={reloadComment}

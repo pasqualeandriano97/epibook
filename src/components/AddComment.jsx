@@ -49,7 +49,7 @@ const AddComponent = ({ currentBook, reloadComment, setReloadComment }) => {
       }}
     >
       <Form.Group className="mb-3">
-        <Form.Label>Commento</Form.Label>
+        <Form.Label className="text-black">Commento</Form.Label>
         <Form.Control
           type="text"
           placeholder="inserisci il tuo commento"

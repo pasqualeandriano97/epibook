@@ -1,4 +1,3 @@
-import { Component } from "react";
 import SingleBook from "./SingleBook";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -17,7 +16,7 @@ const BookList = (book) => {
 
   const [books, setBooks] = useState(book.books);
   const [search, setSearch] = useState("");
-  const [currentBook, setCurrentBook] = useState("");
+  const [currentBook, setCurrentBook] = useState(null);
   const [selectedid, setSelectedid] = useState("");
 
   const currentBookChangeid = (id, border) => {
@@ -28,7 +27,7 @@ const BookList = (book) => {
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     setBooks(
-      book.filter((book) =>
+      books.filter((book) =>
         book.title.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
@@ -43,6 +42,7 @@ const BookList = (book) => {
             <Form.Control
               type="text"
               placeholder="es. Harry Potter"
+              data-testid="search"
               value={search}
               onChange={(e) => {
                 handleSearchChange(e);
@@ -72,7 +72,7 @@ const BookList = (book) => {
               )}
             </Row>
           </Col>
-          <Col className="sticky-top h-25 bg-white">
+          <Col className="sticky-top h-25 bg-white col-4">
             <CommentArea currentBook={currentBook} />
           </Col>
         </Row>
