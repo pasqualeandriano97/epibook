@@ -18,6 +18,11 @@ describe("General Mounting", () => {
     const cards = screen.getAllByRole("img");
     expect(cards).toHaveLength(fantasy.length);
   });
+  it("when nothing is selected, the comment area is empty", () => {
+    render(<App />);
+    const singleComment = screen.queryAllByTestId("comment");
+    expect(singleComment).toHaveLength(0);
+  });
 });
 
 const filterBooks = (books, search) => {
@@ -45,5 +50,14 @@ describe("fireEvent", () => {
     const cards = screen.getAllByTestId("card")[0];
     fireEvent.click(cards);
     expect(cards).toHaveClass("border-2 border-warning h-100");
+  });
+  it("click on an another card", () => {
+    render(<App />);
+    const cards = screen.getAllByTestId("card")[0];
+    const cards2 = screen.getAllByTestId("card")[1];
+    fireEvent.click(cards);
+    fireEvent.click(cards2);
+    expect(cards).toHaveClass("h-100");
+    expect(cards2).toHaveClass("border-2 border-warning h-100");
   });
 });

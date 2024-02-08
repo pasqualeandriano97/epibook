@@ -14,6 +14,7 @@ function CommentsList({ list, reloadComment, setReloadComment }) {
               comment={comment}
               reloadComment={reloadComment}
               setReloadComment={setReloadComment}
+              data-testid="comment"
             />
           );
         })
